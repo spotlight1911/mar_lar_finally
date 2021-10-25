@@ -7,7 +7,7 @@
         <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
     <!-- Форма новой задачи -->
-        <form action="{{ url(route('tasks.store') }}" method="POST" class="form-horizontal">
+        <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Имя задачи -->
@@ -15,7 +15,7 @@
                 <label for="task" class="col-sm-3 control-label">Задача</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control" id="task">
+                    <input type="text" value="{{old('name')}}" name="name" id="task-name" class="form-control" id="task">
                 </div>
             </div>
 
@@ -29,7 +29,4 @@
             </div>
         </form>
     </div>
-    <a href="{{route('tasks.create')}}" class="btn btn-success"><i class="fa fa-plus"> Create new task</i></a>
-
-    <!-- TODO: Текущие задачи -->
 @endsection
