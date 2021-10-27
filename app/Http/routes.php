@@ -45,3 +45,29 @@ Route::post('/tasks',function (\Illuminate\Http\Request $request){
     return redirect(route('tasks.index'));
 
 })->name('tasks.store');
+
+Route::delete('/tasks/{task}',function (\App\Models\Task $task){
+    $task->delete();
+    return redirect(route('tasks.index'));
+})->name('tasks.delete');
+
+Route::get('/tasks/{task}/edit',function (\App\Models\Task $task){
+    return view('tasks.edit', [
+        'task' => $task,
+        ]);
+})->name('tasks.edit');
+
+Route::put('/tasks/{task}',function (\Illuminate\Http\Request $request, \App\Models\Task $task){
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect(route('tasks.edit',$task->id))
+            ->withInput()
+            ->withErrors($validator);
+    }
+    $task->name = $request->name;
+    $task->save();
+    return redirect(route('tasks.index'));
+})->name('tasks.update');

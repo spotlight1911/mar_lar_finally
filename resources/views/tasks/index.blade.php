@@ -34,7 +34,19 @@
                             </td>
 
                             <td>
-                                Delete {{$task->id}}
+                                <form method="post" action="{{route('tasks.delete', $task->id)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button class="btn btn-danger"><i class="fa fa-trash"></i> </button>
+
+                                </form>
+                                </td>
+                            <td>
+                                <form method="post" action="{{route('tasks.edit', $task->id)}}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('GET') }}
+                                    <button class="btn btn-warning"><i class="fa fa-pencil"></i> </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
